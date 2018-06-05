@@ -1,0 +1,28 @@
+{
+  "name": "prmgmt",
+  "version": "1.0.0",
+  "description": "cloud code for prmgmt",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "ssh://git@mobileappsourcecode.abb.com:7999/prmgmt/cloud.git"
+  },
+  "keywords": [
+    "prmgmt",
+    "local",
+    "code"
+  ],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.18.2",
+    "cookie-parser": "^1.4.3",
+    "express": "^4.16.3",
+    "jsonwebtoken": "^8.2.0",
+    "mongodb": "^3.0.4",
+    "uuid": "^3.2.1"
+  }
+}

@@ -1,0 +1,166 @@
+{
+  "status" : "success",
+  "data":[
+    {
+      "name":"Projects",
+      "projects":
+      [
+        {
+          "subject":"project1",
+          "desc":"project1 should start here",
+          "start":23232342342342342,
+          "due":  23233242342342323,
+          "details":"",
+          "status":"open",
+          "resp":"abc@bbc.com",
+          "tasks":[
+               {
+                "subject":"task1",
+                "desc":"task1 should start here",
+                "start":23232342342342342,
+                "due":  23233242342342323,
+                "details":"",
+                "status":"open",
+                "resp":"abc@bbc.com"
+               },{
+                 "subject":"task2",
+                "desc":"task2 should start here",
+                "start":23232342342342342,
+                "due":  23233242342342323,
+                "details":"",
+                "status":"open",
+                "resp":"abc@bbc.com"
+               },
+               {
+                 "subject":"task2",
+                "desc":"task2 should start here",
+                "start":23232342342342342,
+                "due":  23233242342342323,
+                "details":"",
+                "status":"open",
+                "resp":"abc@bbc.com"
+               }
+            ]
+        },
+        {
+          "subject":"project2",
+          "desc":"project2 should start here",
+          "start":23232342342342342,
+          "due":  23233242342342323,
+          "details":"",
+          "status":"open",
+          "resp":"abc@bbc.com",
+          "tasks":[
+               {
+                "subject":"task1",
+                "desc":"task1 should start here",
+                "start":23232342342342342,
+                "due":  23233242342342323,
+                "details":"",
+                "status":"open",
+                "resp":"abc@bbc.com"
+               },{
+                 "subject":"task2",
+                "desc":"task2 should start here",
+                "start":23232342342342342,
+                "due":  23233242342342323,
+                "details":"",
+                "status":"open",
+                "resp":"abc@bbc.com"
+               },
+               {
+                 "subject":"task2",
+                "desc":"task2 should start here",
+                "start":23232342342342342,
+                "due":  23233242342342323,
+                "details":"",
+                "status":"open",
+                "resp":"abc@bbc.com"
+               }
+            ]
+        }
+      ]
+    },
+    {
+        "name":"Events",
+        "events":[
+          {
+          "subject":"Event1",
+          "desc":"event1 should start here",
+          "start":23232342342342342,
+          "due":  23233242342342323,
+          "details":"",
+          "status":"open",
+          "resp":"abc@bbc.com",
+          "tasks":[
+               {
+                "subject":"task1",
+                "desc":"task1 should start here",
+                "start":23232342342342342,
+                "due":  23233242342342323,
+                "details":"",
+                "status":"open",
+                "resp":"abc@bbc.com"
+               },{
+                 "subject":"task2",
+                "desc":"task2 should start here",
+                "start":23232342342342342,
+                "due":  23233242342342323,
+                "details":"",
+                "status":"open",
+                "resp":"abc@bbc.com"
+               },
+               {
+                 "subject":"task2",
+                "desc":"task2 should start here",
+                "start":23232342342342342,
+                "due":  23233242342342323,
+                "details":"",
+                "status":"open",
+                "resp":"abc@bbc.com"
+               }
+            ]
+
+          },
+          {
+          "subject":"Event2",
+          "desc":"event1 should start here",
+          "start":23232342342342342,
+          "due":  23233242342342323,
+          "details":"",
+          "status":"open",
+          "resp":"abc@bbc.com",
+          "tasks":[
+               {
+                "subject":"task1",
+                "desc":"task1 should start here",
+                "start":23232342342342342,
+                "due":  23233242342342323,
+                "details":"",
+                "status":"open",
+                "resp":"abc@bbc.com"
+               },{
+                 "subject":"task2",
+                "desc":"task2 should start here",
+                "start":23232342342342342,
+                "due":  23233242342342323,
+                "details":"",
+                "status":"open",
+                "resp":"abc@bbc.com"
+               },
+               {
+                 "subject":"task2",
+                "desc":"task2 should start here",
+                "start":23232342342342342,
+                "due":  23233242342342323,
+                "details":"",
+                "status":"open",
+                "resp":"abc@bbc.com"
+               }
+            ]
+
+          }
+      ]
+    }
+  ]
+}
