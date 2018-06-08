@@ -25,7 +25,7 @@ function upsertFirstOptions(collectionName,doc , isUpsert){
 
 function deleteSingleDocument(collectionName,inId ,callback){
     db.collection(collectionName).findOneAndDelete( 
-        { _id : inId} ,
+        { "pid" : inId} ,
         function (err, r) {
             assert.equal(null, err);
             callback(r);
@@ -43,7 +43,7 @@ function insertSingleDocument(collectionName,doc ,callback){
 
 function upsertSingleDocument(collectionName,doc , isUpsert,inId,callback){
     db.collection(collectionName).updateOne(
-        { "_id": inId},
+        { "pid": inId},
         { $set: doc},
         { upsert: isUpsert },
         function (err, r) {
@@ -55,7 +55,7 @@ function upsertSingleDocument(collectionName,doc , isUpsert,inId,callback){
 function getDocumentById(collectionName,inId,callback){
     console.log("document id " + inId)
     db.collection(collectionName).find(
-        { "_id": inId }).next(function (err, r) {
+        { "pid": inId }).next(function (err, r) {
             assert.equal(null, err);
             callback(r)
         });

@@ -33,7 +33,7 @@ var distName = "webapp/dist/webapp"
 // =============================================================================
 var router = express.Router();
 var options = {
-    "_id":"00001",
+    "pid":"00001",
     "prmgt_id" : "options",
     "options":
     [

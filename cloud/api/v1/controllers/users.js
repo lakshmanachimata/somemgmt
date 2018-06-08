@@ -33,14 +33,14 @@ router.post('/options', function (req, res) {
 })
 
 
-router.get('/options/:details/:getId', function (req, res) {
+router.get('/options/:details/:pid', function (req, res) {
 
       console.log("getID is " + JSON.stringify(req.params))
-      if(req.params.getId == undefined){
+      if(req.params.pid == undefined){
         res.statusCode = 422;
         res.send("Invalid " + req.params.details + " Id")
       }else{
-          database.getDocumentById(req.params.details,req.params.getId,getDetails)  
+          database.getDocumentById(req.params.details,req.params.pid,getDetails)  
           function getDetails(r){
             res.send(r);
           }
@@ -50,8 +50,8 @@ router.get('/options/:details/:getId', function (req, res) {
 router.post('/options/:details', function (req, res) {
 
         var inProject = req.body;
-        if(inProject._id == undefined){
-            inProject._id = uuidv4();
+        if(inProject.pid == undefined){
+            inProject.pid = uuidv4();
             database.insertSingleDocument(req.params.details,inProject,postDetails)
             function postDetails(doc) {
                 res.send(inProject)
