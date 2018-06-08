@@ -11,6 +11,17 @@ function connectDB(url,dbName){
     });
 }
 
+function getCollectionsNames(callback){
+    db.listCollections().toArray(
+        function(err, collInfos) {
+            assert.equal(null, err);
+            var collArray = [];
+            for(var i =0; i < collInfos.length; i++){
+                collArray.push(collInfos[i].name);
+            }
+            callback(collArray);
+    });
+}
 
 function upsertFirstOptions(collectionName,doc , isUpsert){
     db.collection(collectionName).updateOne(
@@ -71,4 +82,4 @@ module.exports.upsertFirstOptions = upsertFirstOptions;
 module.exports.connectDB = connectDB;
 module.exports.insertSingleDocument = insertSingleDocument;
 module.exports.deleteSingleDocument = deleteSingleDocument;
-
+module.exports.getCollectionsNames =  getCollectionsNames;

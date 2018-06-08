@@ -32,16 +32,16 @@ var distName = "webapp/dist/webapp"
 // ROUTES FOR OUR API
 // =============================================================================
 var router = express.Router();
-var options = {
-    "pid":"00001",
-    "prmgt_id" : "options",
-    "options":
-    [
-        "projects",
-        "events",
-        "demo"
-    ]
-}
+// var options = {
+//     "pid":"00001",
+//     "prmgt_id" : "options",
+//     "options":
+//     [
+//         "projects",
+//         "events",
+//         "demo"
+//     ]
+// }
 // test route to make sure everything is working (accessed at GET http://localhost:8080/api)
 // router.get('/', function (req, res) {
 //     res.json({ message: 'hooray! welcome to our api!' });
@@ -59,9 +59,9 @@ app.use('/api/v2/admin', adminv2);
 app.use(express.static(path.join(__dirname,distName))); 
 database.connectDB(configuration.dbUrl, configuration.dbName)
 
-setTimeout(function () {
-    database.upsertFirstOptions(configuration.collection_options, options,true)
-}, 1000);
+// setTimeout(function () {
+//     database.upsertFirstOptions(configuration.collection_options, options,true)
+// }, 1000);
 
 // setTimeout(function () {
 //     database.getDocumentById(configuration.collection_options, "00001", getCallBack)

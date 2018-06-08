@@ -19,18 +19,18 @@ router.post('/login', function (req, res) {
 })
 
 router.get('/options', function (req, res) {
-    database.getDocumentById(configuration.collection_options, configuration.options_id, getCallBack)
+    database.getCollectionsNames(getCallBack)
     function getCallBack(doc) {
         res.send(doc)
     }
 })
 
-router.post('/options', function (req, res) {
-    database.upsertSingleDocument(configuration.collection_options, req.body, true,configuration.options_id, postData)
-    function postData(doc) {
-        res.send(doc)
-    }
-})
+// router.post('/options', function (req, res) {
+//     database.upsertSingleDocument(configuration.collection_options, req.body, true,configuration.options_id, postData)
+//     function postData(doc) {
+//         res.send(doc)
+//     }
+// })
 
 
 router.get('/options/:details/:pid', function (req, res) {
@@ -58,7 +58,7 @@ router.post('/options/:details', function (req, res) {
             inProject.pid = uuidv4();
             database.insertSingleDocument(req.params.details,inProject,postDetails)
             function postDetails(doc) {
-                console.log("inserted data " + JSON.stringify(inProject));
+                // console.log("inserted data " + JSON.stringify(inProject));
                 delete inProject._id
                 res.send(inProject)
             }
@@ -66,7 +66,7 @@ router.post('/options/:details', function (req, res) {
             inProject.pid = req.params.pid;
             database.upsertSingleDocument(req.params.details, inProject, true,req.params.pid, postDetails)
             function postDetails(doc) {
-                console.log("inserted data " + JSON.stringify(inProject));
+                // console.log("inserted data " + JSON.stringify(inProject));
                 res.send(inProject)
             }
         }

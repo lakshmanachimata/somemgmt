@@ -9,7 +9,6 @@ function define(name, value) {
 define("dbUrl", 'mongodb://localhost:27017');
 define("dbName", 'prmgmt');
 define("secret", 'abbprmgmt');
-define("collection_options", 'options');
 define("collection_users", 'users');
 define("collection_tasks", 'tasks');
 define("collection_subtasks", 'subtasks');
