@@ -60,7 +60,7 @@ app.use(express.static(path.join(__dirname,distName)));
 database.connectDB(configuration.dbUrl, configuration.dbName)
 
 setTimeout(function () {
-    database.upsertSingleDocument(configuration.collection_options, options,true)
+    database.upsertFirstOptions(configuration.collection_options, options,true)
 }, 1000);
 
 // setTimeout(function () {

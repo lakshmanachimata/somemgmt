@@ -26,35 +26,43 @@ router.get('/options', function (req, res) {
 })
 
 router.post('/options', function (req, res) {
-    res.send('options post API')
+    database.upsertSingleDocument(configuration.collection_options, req.body, true,configuration.options_id, postData)
+    function postData(doc) {
+        res.send(doc)
+    }
 })
 
 
-router.get('/options/:details', function (req, res) {
-    if(req.params.details == configuration.collection_projects){
+router.get('/options/:details/:getId', function (req, res) {
 
-    }if(req.params.details == configuration.collection_events){
-    }else{
-        res.send('Invalid option')
-    }
+      console.log("getID is " + JSON.stringify(req.params))
+      if(req.params.getId == undefined){
+        res.statusCode = 422;
+        res.send("Invalid " + req.params.details + " Id")
+      }else{
+          database.getDocumentById(req.params.details,req.params.getId,getDetails)  
+          function getDetails(r){
+            res.send(r);
+          }
+      }
 })
 
 router.post('/options/:details', function (req, res) {
-    // console.log(req.params.details)
-    // console.log(configuration.collection_projects)
-    // console.log(typeof req.params.details);
-    // console.log(typeof configuration.collection_projects);
 
-    if(req.params.details == configuration.collection_projects) {
-        // console.log(req)
         var inProject = req.body;
-        inProject._id = uuidv4();
-        console.log(typeof req.body)
-        res.send(inProject)
-    }else if(req.params.details == configuration.collection_events) {
-    }else{
-        res.send('Invalid option')
-    }
+        if(inProject._id == undefined){
+            inProject._id = uuidv4();
+            database.insertSingleDocument(req.params.details,inProject,postDetails)
+            function postDetails(doc) {
+                res.send(inProject)
+            }
+        }else{
+            database.upsertSingleDocument(configuration.collection_options, inProject, true,inProject._id, postDetails)
+            function postDetails(doc) {
+                res.send(inProject)
+            }
+        }
+        // console.log("data came " + JSON.stringify(inProject))
 })
 
 router.get('/options/:details/:tasks', function (req, res) {
