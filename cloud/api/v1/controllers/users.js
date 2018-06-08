@@ -44,6 +44,7 @@ router.get('/options/:details/:pid', function (req, res) {
             if(r == undefined || r == null ){
                 res.send("Invalid " + req.params.details + " Id : " + req.params.pid)
             }else{
+                delete r._id
                 res.send(r);
             }
           }
@@ -53,46 +54,69 @@ router.get('/options/:details/:pid', function (req, res) {
 router.post('/options/:details', function (req, res) {
 
         var inProject = req.body;
-        if(inProject.pid == undefined){
+        if(req.params.pid == undefined || req.params.pid == null){
             inProject.pid = uuidv4();
             database.insertSingleDocument(req.params.details,inProject,postDetails)
             function postDetails(doc) {
+                console.log("inserted data " + JSON.stringify(inProject));
+                delete inProject._id
                 res.send(inProject)
             }
         }else{
-            database.upsertSingleDocument(configuration.collection_options, inProject, true,inProject._id, postDetails)
+            inProject.pid = req.params.pid;
+            database.upsertSingleDocument(req.params.details, inProject, true,req.params.pid, postDetails)
             function postDetails(doc) {
+                console.log("inserted data " + JSON.stringify(inProject));
                 res.send(inProject)
             }
         }
         // console.log("data came " + JSON.stringify(inProject))
 })
 
-router.get('/options/:details/:tasks', function (req, res) {
-    if (req.params.details == configuration.collection_projects) {
-        res.send('option  details get API ' + req.params.details + '  ' + req.params.tasks)
-    }if(req.params.details == configuration.collection_events) {
-        res.send('option  details get API ' + req.params.details + '  ' + req.params.tasks)
-    }else{
-        res.send('Invalid option')
-    }
+router.put('/options/:details/:pid', function (req, res) {
+        var inProject = req.body;
+        if(req.params.pid == undefined || req.params.pid == null){
+            inProject.pid = uuidv4();
+            database.insertSingleDocument(req.params.details,inProject,postDetails)
+            function postDetails(doc) {
+                delete inProject._id
+                res.send(inProject)
+            }
+        }else{
+            inProject.pid = req.params.pid;
+            database.upsertSingleDocument(req.params.details, inProject, true,req.params.pid, postDetails)
+            function postDetails(doc) {
+                res.send(inProject)
+            }
+        }
 })
 
 
+// router.get('/options/:details/:tasks', function (req, res) {
+//     if (req.params.details == configuration.collection_projects) {
+//         res.send('option  details get API ' + req.params.details + '  ' + req.params.tasks)
+//     }if(req.params.details == configuration.collection_events) {
+//         res.send('option  details get API ' + req.params.details + '  ' + req.params.tasks)
+//     }else{
+//         res.send('Invalid option')
+//     }
+// })
 
-router.post('/options/:details/:tasks', function (req, res) {
-    if(req.params.details == configuration.collection_projects) {
-    }if(req.params.details == configuration.collection_events) {
-    }else {
-        res.send('Invalid option')
-    }
-})
 
-router.put('/options/:details/:tasks', function (req, res) {
-    if (req.params.details == configuration.collection_projects) {
-    } if (req.params.details == configuration.collection_events) {
-    } else {
-        res.send('Invalid option')
-    }
-})
+
+// router.post('/options/:details/:tasks', function (req, res) {
+//     if(req.params.details == configuration.collection_projects) {
+//     }if(req.params.details == configuration.collection_events) {
+//     }else {
+//         res.send('Invalid option')
+//     }
+// })
+
+// router.put('/options/:details/:tasks', function (req, res) {
+//     if (req.params.details == configuration.collection_projects) {
+//     } if (req.params.details == configuration.collection_events) {
+//     } else {
+//         res.send('Invalid option')
+//     }
+// })
 module.exports = router
