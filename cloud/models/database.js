@@ -1,17 +1,15 @@
 const MongoClient = require('mongodb').MongoClient;
 const assert = require('assert');
-var mongoDbClient;
-var db
 
-function connectDB(url,dbName){
+function connectDB(url,dbName,callback){
     MongoClient.connect(url, function (err, client) {
         assert.equal(null, err);
         mongoDbClient =  client;
-        db = mongoDbClient.db(dbName);
+        callback(client)
     });
 }
 
-function getCollectionsNames(callback){
+function getCollectionsNames(db,callback){
     db.listCollections().toArray(
         function(err, collInfos) {
             assert.equal(null, err);
@@ -23,18 +21,18 @@ function getCollectionsNames(callback){
     });
 }
 
-function upsertFirstOptions(collectionName,doc , isUpsert){
-    db.collection(collectionName).updateOne(
-        { "_id": "00001"},
-        { $set: doc},
-        { upsert: isUpsert },
-        function (err, r) {
-            assert.equal(null, err);
-    });
-}
+// function upsertFirstOptions(db,collectionName,doc , isUpsert){
+//     db.collection(collectionName).updateOne(
+//         { "_id": "00001"},
+//         { $set: doc},
+//         { upsert: isUpsert },
+//         function (err, r) {
+//             assert.equal(null, err);
+//     });
+// }
 
 
-function deleteSingleDocument(collectionName,inId ,callback){
+function deleteSingleDocument(db,collectionName,inId ,callback){
     db.collection(collectionName).findOneAndDelete( 
         { "pid" : inId} ,
         function (err, r) {
@@ -44,7 +42,7 @@ function deleteSingleDocument(collectionName,inId ,callback){
 }
 
 
-function insertSingleDocument(collectionName,doc ,callback){
+function insertSingleDocument(db,collectionName,doc ,callback){
     db.collection(collectionName).insertOne( doc ,
         function (err, r) {
             assert.equal(null, err);
@@ -52,7 +50,7 @@ function insertSingleDocument(collectionName,doc ,callback){
     });
 }
 
-function upsertSingleDocument(collectionName,doc , isUpsert,inId,callback){
+function upsertSingleDocument(db,collectionName,doc , isUpsert,inId,callback){
     db.collection(collectionName).updateOne(
         { "pid": inId},
         { $set: doc},
@@ -63,7 +61,7 @@ function upsertSingleDocument(collectionName,doc , isUpsert,inId,callback){
     });
 }
 
-function getDocumentById(collectionName,inId,callback){
+function getDocumentById(db,collectionName,inId,callback){
     db.collection(collectionName).find(
         { "pid": inId }).next(function (err, r) {
             assert.equal(null, err);
@@ -71,14 +69,12 @@ function getDocumentById(collectionName,inId,callback){
         });
 }
 
-function closeDb(name){
-    var db = mongoDbClient.db(name);
+function closeDb(db){
     db.close();
 }
 
 module.exports.getDocumentById = getDocumentById;
 module.exports.upsertSingleDocument = upsertSingleDocument;
-module.exports.upsertFirstOptions = upsertFirstOptions;
 module.exports.connectDB = connectDB;
 module.exports.insertSingleDocument = insertSingleDocument;
 module.exports.deleteSingleDocument = deleteSingleDocument;

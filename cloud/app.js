@@ -15,6 +15,7 @@ var adminv2 = require('./api/v2/controllers/admin')
 var path = require('path');
 var configuration = require('./config/config')
 var database = require('./models/database')
+const CJSON = require('circular-json');
 
 
 // configure app to use bodyParser()
@@ -28,7 +29,8 @@ var distName = "webapp/dist/webapp"
 // connect().use(serveStatic(__dirname)).listen(5857, function(){
 //     console.log('Server running on 8080...');
 // });
-
+var gDB;
+var numDB= 0;
 // ROUTES FOR OUR API
 // =============================================================================
 var router = express.Router();
@@ -57,7 +59,16 @@ app.use('/api/v1/admin', adminv2);
 app.use('/api/v2/users', usersv2);
 app.use('/api/v2/admin', adminv2);
 app.use(express.static(path.join(__dirname,distName))); 
-database.connectDB(configuration.dbUrl, configuration.dbName)
+database.connectDB(configuration.dbUrl, configuration.dbNameOne,onDBConnect)
+function onDBConnect(db){
+	gDB = db;
+	numDB = numDB + 1;
+	// console.log("DB RES  is " + CJSON.stringify(db))
+	if(numDB < 2){
+		database.connectDB(configuration.dbUrl, configuration.dbNameTwo,onDBConnect)
+	}
+	usersv1.setActiveDB(gDB);
+}
 
 // setTimeout(function () {
 //     database.upsertFirstOptions(configuration.collection_options, options,true)
