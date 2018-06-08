@@ -35,14 +35,17 @@ router.post('/options', function (req, res) {
 
 router.get('/options/:details/:pid', function (req, res) {
 
-      console.log("getID is " + JSON.stringify(req.params))
       if(req.params.pid == undefined){
         res.statusCode = 422;
         res.send("Invalid " + req.params.details + " Id")
       }else{
           database.getDocumentById(req.params.details,req.params.pid,getDetails)  
           function getDetails(r){
-            res.send(r);
+            if(r == undefined || r == null ){
+                res.send("Invalid " + req.params.details + " Id : " + req.params.pid)
+            }else{
+                res.send(r);
+            }
           }
       }
 })

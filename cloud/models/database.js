@@ -53,7 +53,6 @@ function upsertSingleDocument(collectionName,doc , isUpsert,inId,callback){
 }
 
 function getDocumentById(collectionName,inId,callback){
-    console.log("document id " + inId)
     db.collection(collectionName).find(
         { "pid": inId }).next(function (err, r) {
             assert.equal(null, err);
