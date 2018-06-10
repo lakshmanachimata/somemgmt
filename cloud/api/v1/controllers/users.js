@@ -4,6 +4,7 @@ var database = require('../../../models/database')
 var configuration = require('../../../config/config')
 const uuidv4 = require('uuid/v4');
 var aDB;
+var dbClient;
 // middleware that is specific to this router
 router.use(function timeLog(req, res, next) {
     console.log('Request came at ' + 'Time: ', Date.now())
@@ -19,7 +20,7 @@ router.post('/login', function (req, res) {
 })
 
 router.get('/options', function (req, res) {
-    aDB = aDB.db(configuration.dbNameTwo)
+    aDB = dbClient.db(configuration.dbNameTwo)
     database.getCollectionsNames(aDB,getCallBack)
     function getCallBack(doc) {
         res.send(doc)
@@ -35,7 +36,7 @@ router.get('/options', function (req, res) {
 
 
 router.get('/options/:details/:pid', function (req, res) {
-        aDB = aDB.db(configuration.dbNameTwo)
+        aDB = dbClient.db(configuration.dbNameTwo)
       if(req.params.pid == undefined){
         res.statusCode = 422;
         res.send("Invalid " + req.params.details + " Id")
@@ -53,7 +54,7 @@ router.get('/options/:details/:pid', function (req, res) {
 })
 
 router.post('/options/:details', function (req, res) {
-        aDB = aDB.db(configuration.dbNameTwo)
+        aDB = dbClient.db(configuration.dbNameTwo)
         var inProject = req.body;
         if(req.params.pid == undefined || req.params.pid == null){
             inProject.pid = uuidv4();
@@ -75,7 +76,7 @@ router.post('/options/:details', function (req, res) {
 })
 
 router.put('/options/:details/:pid', function (req, res) {
-        aDB = aDB.db(configuration.dbNameTwo)
+        aDB = dbClient.db(configuration.dbNameTwo)
         var inProject = req.body;
         if(req.params.pid == undefined || req.params.pid == null){
             inProject.pid = uuidv4();
@@ -94,7 +95,7 @@ router.put('/options/:details/:pid', function (req, res) {
 })
 
 function setActiveDB(db){
-    aDB = db;
+    dbClient = db;
 }
 
 // router.get('/options/:details/:tasks', function (req, res) {
