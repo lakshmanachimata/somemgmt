@@ -34,6 +34,26 @@ router.get('/options', function (req, res) {
 //     }
 // })
 
+router.get('/options/:details/', function (req, res) {
+        aDB = dbClient.db(configuration.dbNameTwo)
+      if(req.params.details == undefined){
+        res.statusCode = 422;
+        res.send("Invalid " + req.params.details + " Id")
+      }else{
+          database.getDocumentsForCollection(aDB,req.params.details,getDetails)  
+          function getDetails(r){
+            if(r == undefined || r == null ){
+                res.send("Invalid " + req.params.details + " Id : " + req.params.pid)
+            }else{
+                for(var i=0; i <r.length; i++){
+                    delete r[i]._id;
+                }
+                res.send(r);
+            }
+          }
+      }
+})
+
 
 router.get('/options/:details/:pid', function (req, res) {
         aDB = dbClient.db(configuration.dbNameTwo)

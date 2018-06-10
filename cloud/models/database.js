@@ -31,6 +31,13 @@ function getCollectionsNames(db,callback){
 //     });
 // }
 
+function getDocumentsForCollection(db,collectionName,callback){
+    db.collection(collectionName).find({}).toArray(function(err, result) {
+    if (err) throw err;
+    callback(result)
+  });
+}
+
 
 function deleteSingleDocument(db,collectionName,inId ,callback){
     db.collection(collectionName).findOneAndDelete( 
@@ -76,6 +83,7 @@ function closeDb(db){
 module.exports.getDocumentById = getDocumentById;
 module.exports.upsertSingleDocument = upsertSingleDocument;
 module.exports.connectDB = connectDB;
+module.exports.getDocumentsForCollection = getDocumentsForCollection;
 module.exports.insertSingleDocument = insertSingleDocument;
 module.exports.deleteSingleDocument = deleteSingleDocument;
 module.exports.getCollectionsNames =  getCollectionsNames;

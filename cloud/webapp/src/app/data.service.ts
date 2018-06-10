@@ -18,9 +18,22 @@ export class DataService {
 		});
 	}
 
+	getLatestOrders(){
+		this.getAllOrders().then((data) => {
+			console.log("options are " + JSON.stringify(data));
+		});
+	}
+
 	getOptions(){
 		return new Promise<any>(resolve => {
 	        this.http.get('http://localhost:5857/api/v1/users/options').subscribe(response => {
+	            resolve(response);
+	        });
+	    });
+	}
+	getAllOrders(){
+		return new Promise<any>(resolve => {
+	        this.http.get('http://localhost:5857/api/v1/users/options/orders').subscribe(response => {
 	            resolve(response);
 	        });
 	    });
